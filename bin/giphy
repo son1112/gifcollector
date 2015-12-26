@@ -1,0 +1,67 @@
+#!/usr/bin/ruby
+
+require 'nokogiri'
+require 'open-uri'
+require 'json'
+require 'curb'
+
+$home = Dir.home()
+$tag = ARGV[0]
+$shots = ARGV[1].to_i
+$public_api_key = "dc6zaTOxFJmzC"
+$api = "api.giphy.com/v1/gifs/tv?api_key="
+$url = "http://#{$api}#{$public_api_key}&tag=#{$tag}"
+
+def create_dir(dir, tag)
+  unless Dir.exists?(dir)
+    Dir.mkdir(File.join($gifdir, tag), 0700)
+  end
+end
+
+$gifdir = "#{$home}/giphy/gifs"
+$tagdir = "#{$gifdir}/#{$tag}"
+
+def get_start
+  tagdir_count = Dir.entries($tagdir).count
+  
+  if tagdir_count == nil
+    return 0
+  else
+    return  Dir.entries($tagdir).count + 1
+  end
+end
+
+def collect_gifs(shots)
+
+  create_dir($tagdir, $tag)
+
+  start = get_start
+  stop = start+shots
+  
+  $i = start
+
+  while $i < stop do
+    html = Nokogiri::HTML(open($url)).inner_text
+    data = JSON.parse(html)['data']
+    gif_url = data['image_original_url']
+    gif = Curl.get(gif_url).body_str
+    file = "#{$tagdir}/#{$tag}_0000#{$i}.gif"
+    log = "#{$gifdir}/tmp/#{$tag}.json"
+
+    # File.open(log, 'a') {|f|
+    #   f.write("\n/*START*/\n")
+
+    #   f.write(gif)
+
+    #   f.write("\n/*END*/\n\n")
+    # }
+    
+    File.open(file, 'w') {|f|
+      f.write(gif)
+    }
+
+    $i +=1
+  end
+end
+
+collect_gifs($shots) 
