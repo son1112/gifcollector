@@ -1,4 +1,5 @@
 *GifCollector*
 
-Using [[https://github.com/giphy/GiphyAPI][giphy public api]] endpoint to download given number of gifs filtered by given tag
+A small [[./bin/giphy][ruby script]] that uses the [[https://github.com/giphy/GiphyAPI][giphy public api]] endpoint to download given number of gifs filtered by given tag
+
 

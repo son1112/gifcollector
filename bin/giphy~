@@ -46,6 +46,15 @@ def collect_gifs(shots)
     gif_url = data['image_original_url']
     gif = Curl.get(gif_url).body_str
     file = "#{$tagdir}/#{$tag}_0000#{$i}.gif"
+    log = "#{$gifdir}/tmp/#{$tag}.json"
+
+    # File.open(log, 'a') {|f|
+    #   f.write("\n/*START*/\n")
+
+    #   f.write(gif)
+
+    #   f.write("\n/*END*/\n\n")
+    # }
     
     File.open(file, 'w') {|f|
       f.write(gif)
