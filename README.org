@@ -1,5 +1,7 @@
 *GifCollector*
 
-A small [[./bin/giphy][ruby script]] that uses the [[https://github.com/giphy/GiphyAPI][giphy public api]] endpoint to download given number of gifs filtered by given tag
+A small [[./bin/gifcollector][ruby script]] that uses the [[https://github.com/giphy/GiphyAPI][giphy public api]] endpoint to download given 
+number of gifs filtered by given tag. Exploring Giphy API wrapper from [[https://github.com/sebasoga][sebasoga]] 
+as well, because, YES, GIFs do make life fun.
 
-
+[[./config/giphy.rb][Giphy Configuration]]

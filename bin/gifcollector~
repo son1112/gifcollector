@@ -4,22 +4,21 @@ require 'nokogiri'
 require 'open-uri'
 require 'json'
 require 'curb'
+require 'giphy'
 
 $home = Dir.home()
 $tag = ARGV[0]
 $shots = ARGV[1].to_i
-$public_api_key = "dc6zaTOxFJmzC"
-$api = "api.giphy.com/v1/gifs/tv?api_key="
-$url = "http://#{$api}#{$public_api_key}&tag=#{$tag}"
+$gifdir = "#{$home}/giphy/gifs"
+$tagdir = "#{$gifdir}/#{$tag}"
+
+load 'config/giphy'
 
 def create_dir(dir, tag)
   unless Dir.exists?(dir)
     Dir.mkdir(File.join($gifdir, tag), 0700)
   end
 end
-
-$gifdir = "#{$home}/giphy/gifs"
-$tagdir = "#{$gifdir}/#{$tag}"
 
 def get_start
   tagdir_count = Dir.entries($tagdir).count
